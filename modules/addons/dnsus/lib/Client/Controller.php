@@ -5,7 +5,8 @@ namespace WHMCS\Module\Addon\dnsus\Client;
 /**
  * Sample Client Area Controller
  */
-class Controller {
+class Controller
+{
 
     /**
      * Index action.
@@ -85,52 +86,53 @@ class Controller {
     }
 
 
-  public function ns($vars)
-  {
-    // Get common module parameters
-    $modulelink = $vars['modulelink']; // eg. dnsuss.php?module=dnsus
-    $version = $vars['version']; // eg. 1.0
-    $LANG = $vars['_lang']; // an array of the currently loaded language variables
+    public function ns($vars)
+    {
+        // Get common module parameters
+        $modulelink = $vars['modulelink']; // eg. dnsuss.php?module=dnsus
+        $version = $vars['version']; // eg. 1.0
+        $LANG = $vars['_lang']; // an array of the currently loaded language variables
 
-    $login = $vars['login'];
-    $password = $vars['password'];
-    $ip = $vars['ip'];
+        $login = $vars['login'];
+        $password = $vars['password'];
+        $ip = $vars['ip'];
 
-    $ch = curl_init();
-    curl_setopt_array($ch, [
-      CURLOPT_HTTPHEADER => array("Content-Type: application/json",)
-    ]);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
-    curl_setopt($ch, CURLOPT_HEADER, false);
+        $ch = curl_init();
+        curl_setopt_array($ch, [
+            CURLOPT_HTTPHEADER => array("Content-Type: application/json",)
+        ]);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
+        curl_setopt($ch, CURLOPT_HEADER, false);
 
-    $url = 'https://' . $ip . '/dnsmgr?authinfo=' . $login . ':' . $password . '&out=JSONdata' .
-      '&func=domain.record' .
-      '&elid='.$_GET['name'];
+        $url = 'https://' . $ip . '/dnsmgr?authinfo=' . $login . ':' . $password . '&out=JSONdata' .
+            '&func=domain.record' .
+            '&elid=' . $_GET['name'];
 
-    curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_URL, $url);
 
 
-    $response = curl_exec($ch);
+        $response = curl_exec($ch);
 
-    if (curl_errno($ch)) {
-      die("{Error: " . curl_error($ch) . "}");
+        if (curl_errno($ch)) {
+            die("{Error: " . curl_error($ch) . "}");
+        }
+
+        return array(
+            'pagetitle' => 'ns edit',
+            'breadcrumb' => array(
+                'index.php?m=dnsus' => 'Sample Addon Module',
+                'index.php?m=dnsus&action=ns' => 'ns edit',
+            ),
+            'templatefile' => 'ns',
+            'requirelogin' => true, // Set true to restrict access to authenticated client users
+            'forcessl' => false, // Deprecated as of Version 7.0. Requests will always use SSL if available.
+            'vars' => array(
+                'modulelink' => $modulelink,
+                'nses' => json_decode($response, true),
+                'plid' => $_GET['name']
+            ),
+        );
     }
-
-    return array(
-      'pagetitle' => 'ns edit',
-      'breadcrumb' => array(
-        'index.php?m=dnsus' => 'Sample Addon Module',
-        'index.php?m=dnsus&action=ns' => 'ns edit',
-      ),
-      'templatefile' => 'ns',
-      'requirelogin' => true, // Set true to restrict access to authenticated client users
-      'forcessl' => false, // Deprecated as of Version 7.0. Requests will always use SSL if available.
-      'vars' => array(
-        'modulelink' => $modulelink,
-        'nses' => json_decode($response, true)
-      ),
-    );
-  }
 }

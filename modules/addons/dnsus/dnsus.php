@@ -38,7 +38,7 @@ use WHMCS\Module\Addon\dnsus\Admin\AdminDispatcher;
 use WHMCS\Module\Addon\dnsus\Client\ClientDispatcher;
 
 if (!defined("WHMCS")) {
-  die("This file cannot be accessed directly");
+    die("This file cannot be accessed directly");
 }
 
 /**
@@ -58,44 +58,44 @@ if (!defined("WHMCS")) {
  */
 function dnsus_config()
 {
-  return [
-    // Display name for your module
-    'name' => 'dnsus',
-    // Description displayed within the admin interface
-    'description' => 'This module provides an example WHMCS Addon Module'
-      . ' which can be used as a basis for building a custom addon module.',
-    // Module author name
-    'author' => 'Bubnov',
-    // Default language
-    'language' => 'english',
-    // Version number
-    'version' => '1.0',
-    'fields' => [
-      // a text field type allows for single line text input
-      'login' => [
-        'FriendlyName' => 'login',
-        'Type' => 'text',
-        'Size' => '25',
-        'Default' => '',
-        'Description' => 'login for dns manager',
-      ],
-      // a password field type allows for masked text input
-      'password' => [
-        'FriendlyName' => 'password',
-        'Type' => 'text',
-        'Size' => '25',
-        'Default' => '',
-        'Description' => 'password for dns manager',
-      ],
-      'ip' => [
-        'FriendlyName' => 'ip',
-        'Type' => 'text',
-        'Size' => '25',
-        'Default' => '',
-        'Description' => 'ip for dns manager',
-      ],
-    ]
-  ];
+    return [
+        // Display name for your module
+        'name' => 'dnsus',
+        // Description displayed within the admin interface
+        'description' => 'This module provides an example WHMCS Addon Module'
+            . ' which can be used as a basis for building a custom addon module.',
+        // Module author name
+        'author' => 'Bubnov',
+        // Default language
+        'language' => 'english',
+        // Version number
+        'version' => '1.0',
+        'fields' => [
+            // a text field type allows for single line text input
+            'login' => [
+                'FriendlyName' => 'login',
+                'Type' => 'text',
+                'Size' => '25',
+                'Default' => '',
+                'Description' => 'login for dns manager',
+            ],
+            // a password field type allows for masked text input
+            'password' => [
+                'FriendlyName' => 'password',
+                'Type' => 'text',
+                'Size' => '25',
+                'Default' => '',
+                'Description' => 'password for dns manager',
+            ],
+            'ip' => [
+                'FriendlyName' => 'ip',
+                'Type' => 'text',
+                'Size' => '25',
+                'Default' => '',
+                'Description' => 'ip for dns manager',
+            ],
+        ]
+    ];
 }
 
 /**
@@ -113,33 +113,33 @@ function dnsus_config()
  */
 function dnsus_activate()
 {
-  // Create custom tables and schema required by your module
-  try {
-    Capsule::schema()
-      ->create(
-        'dnsus_domains-users',
-        function ($table) {
-          /** @var \Illuminate\Database\Schema\Blueprint $table */
-          $table->increments('id');
-          $table->string('domain');
-          $table->integer('client_id');
-        }
-      );
+    // Create custom tables and schema required by your module
+    try {
+        Capsule::schema()
+            ->create(
+                'dnsus_domains-users',
+                function ($table) {
+                    /** @var \Illuminate\Database\Schema\Blueprint $table */
+                    $table->increments('id');
+                    $table->string('domain');
+                    $table->integer('client_id');
+                }
+            );
 
-    return [
-      // Supported values here include: success, error or info
-      'status' => 'success',
-      'description' => 'This is a demo module only. '
-        . 'In a real module you might report a success or instruct a '
-        . 'user how to get started with it here.',
-    ];
-  } catch (\Exception $e) {
-    return [
-      // Supported values here include: success, error or info
-      'status' => "error",
-      'description' => 'Unable to create mod_addonexample: ' . $e->getMessage(),
-    ];
-  }
+        return [
+            // Supported values here include: success, error or info
+            'status' => 'success',
+            'description' => 'This is a demo module only. '
+                . 'In a real module you might report a success or instruct a '
+                . 'user how to get started with it here.',
+        ];
+    } catch (\Exception $e) {
+        return [
+            // Supported values here include: success, error or info
+            'status' => "error",
+            'description' => 'Unable to create mod_addonexample: ' . $e->getMessage(),
+        ];
+    }
 }
 
 /**
@@ -157,24 +157,24 @@ function dnsus_activate()
  */
 function dnsus_deactivate()
 {
-  // Undo any database and schema modifications made by your module here
-  try {
-    Capsule::schema()
-      ->dropIfExists('dnsus_domains-users');
+    // Undo any database and schema modifications made by your module here
+    try {
+        Capsule::schema()
+            ->dropIfExists('dnsus_domains-users');
 
-    return [
-      // Supported values here include: success, error or info
-      'status' => 'success',
-      'description' => 'This is a demo module only. '
-        . 'In a real module you might report a success here.',
-    ];
-  } catch (\Exception $e) {
-    return [
-      // Supported values here include: success, error or info
-      "status" => "error",
-      "description" => "Unable to drop dnsus_domains-users: {$e->getMessage()}",
-    ];
-  }
+        return [
+            // Supported values here include: success, error or info
+            'status' => 'success',
+            'description' => 'This is a demo module only. '
+                . 'In a real module you might report a success here.',
+        ];
+    } catch (\Exception $e) {
+        return [
+            // Supported values here include: success, error or info
+            "status" => "error",
+            "description" => "Unable to drop dnsus_domains-users: {$e->getMessage()}",
+        ];
+    }
 }
 
 /**
@@ -191,17 +191,17 @@ function dnsus_deactivate()
  */
 function dnsus_upgrade($vars)
 {
-  $currentlyInstalledVersion = $vars['version'];
+    $currentlyInstalledVersion = $vars['version'];
 
-  /// Perform SQL schema changes required by the upgrade to version 1.1 of your module
-  if ($currentlyInstalledVersion < 1.1) {
+    /// Perform SQL schema changes required by the upgrade to version 1.1 of your module
+    if ($currentlyInstalledVersion < 1.1) {
 
-  }
+    }
 
-  /// Perform SQL schema changes required by the upgrade to version 1.2 of your module
-  if ($currentlyInstalledVersion < 1.2) {
+    /// Perform SQL schema changes required by the upgrade to version 1.2 of your module
+    if ($currentlyInstalledVersion < 1.2) {
 
-  }
+    }
 }
 
 /**
@@ -218,27 +218,27 @@ function dnsus_upgrade($vars)
  */
 function dnsus_output($vars)
 {
-  // Get common module parameters
-  $modulelink = $vars['modulelink']; // eg. dnsuss.php?module=dnsus
-  $version = $vars['version']; // eg. 1.0
-  $_lang = $vars['_lang']; // an array of the currently loaded language variables
+    // Get common module parameters
+    $modulelink = $vars['modulelink']; // eg. dnsuss.php?module=dnsus
+    $version = $vars['version']; // eg. 1.0
+    $_lang = $vars['_lang']; // an array of the currently loaded language variables
 
-  // Get module configuration parameters
-  $configTextField = $vars['Text Field Name'];
-  $configPasswordField = $vars['Password Field Name'];
-  $configCheckboxField = $vars['Checkbox Field Name'];
-  $configDropdownField = $vars['Dropdown Field Name'];
-  $configRadioField = $vars['Radio Field Name'];
-  $configTextareaField = $vars['Textarea Field Name'];
+    // Get module configuration parameters
+    $configTextField = $vars['Text Field Name'];
+    $configPasswordField = $vars['Password Field Name'];
+    $configCheckboxField = $vars['Checkbox Field Name'];
+    $configDropdownField = $vars['Dropdown Field Name'];
+    $configRadioField = $vars['Radio Field Name'];
+    $configTextareaField = $vars['Textarea Field Name'];
 
-  // Dispatch and handle request here. What follows is a demonstration of one
-  // possible way of handling this using a very basic dispatcher implementation.
+    // Dispatch and handle request here. What follows is a demonstration of one
+    // possible way of handling this using a very basic dispatcher implementation.
 
-  $action = isset($_REQUEST['action']) ? $_REQUEST['action'] : '';
+    $action = isset($_REQUEST['action']) ? $_REQUEST['action'] : '';
 
-  $dispatcher = new AdminDispatcher();
-  $response = $dispatcher->dispatch($action, $vars);
-  echo $response;
+    $dispatcher = new AdminDispatcher();
+    $response = $dispatcher->dispatch($action, $vars);
+    echo $response;
 }
 
 /**
@@ -253,21 +253,21 @@ function dnsus_output($vars)
  */
 function dnsus_sidebar($vars)
 {
-  // Get common module parameters
-  $modulelink = $vars['modulelink'];
-  $version = $vars['version'];
-  $_lang = $vars['_lang'];
+    // Get common module parameters
+    $modulelink = $vars['modulelink'];
+    $version = $vars['version'];
+    $_lang = $vars['_lang'];
 
-  // Get module configuration parameters
-  $configTextField = $vars['Text Field Name'];
-  $configPasswordField = $vars['Password Field Name'];
-  $configCheckboxField = $vars['Checkbox Field Name'];
-  $configDropdownField = $vars['Dropdown Field Name'];
-  $configRadioField = $vars['Radio Field Name'];
-  $configTextareaField = $vars['Textarea Field Name'];
+    // Get module configuration parameters
+    $configTextField = $vars['Text Field Name'];
+    $configPasswordField = $vars['Password Field Name'];
+    $configCheckboxField = $vars['Checkbox Field Name'];
+    $configDropdownField = $vars['Dropdown Field Name'];
+    $configRadioField = $vars['Radio Field Name'];
+    $configTextareaField = $vars['Textarea Field Name'];
 
-  $sidebar = '<p>Sidebar output HTML goes here</p>';
-  return $sidebar;
+    $sidebar = '<p>Sidebar output HTML goes here</p>';
+    return $sidebar;
 }
 
 /**
@@ -284,109 +284,129 @@ function dnsus_sidebar($vars)
  */
 function dnsus_clientarea($vars)
 {
-  // Get common module parameters
-  $modulelink = $vars['modulelink']; // eg. index.php?m=dnsus
-  $version = $vars['version']; // eg. 1.0
-  $_lang = $vars['_lang']; // an array of the currently loaded language variables
+    // Get common module parameters
+    $modulelink = $vars['modulelink']; // eg. index.php?m=dnsus
+    $version = $vars['version']; // eg. 1.0
+    $_lang = $vars['_lang']; // an array of the currently loaded language variables
 
-  // Get module configuration parameters
-  $login = $vars['login'];
-  $password = $vars['password'];
-  $ip = $vars['ip'];
+    // Get module configuration parameters
+    $login = $vars['login'];
+    $password = $vars['password'];
+    $ip = $vars['ip'];
 
-  dnsus_cmd_handler($vars);
+    dnsus_cmd_handler($vars);
 
 
-  /**
-   * Dispatch and handle request here. What follows is a demonstration of one
-   * possible way of handling this using a very basic dispatcher implementation.
-   */
+    /**
+     * Dispatch and handle request here. What follows is a demonstration of one
+     * possible way of handling this using a very basic dispatcher implementation.
+     */
 
-  $action = isset($_REQUEST['action']) ? $_REQUEST['action'] : '';
+    $action = isset($_REQUEST['action']) ? $_REQUEST['action'] : '';
 
-  $dispatcher = new ClientDispatcher();
-  return $dispatcher->dispatch($action, $vars);
+    $dispatcher = new ClientDispatcher();
+    return $dispatcher->dispatch($action, $vars);
 }
 
 function dnsus_cmd_handler($vars)
 {
-  if (empty($_SERVER['HTTP_X_REQUESTED_WITH']) || $_SERVER['HTTP_X_REQUESTED_WITH'] != 'XMLHttpRequest') {
-    return;
-  }
-  if ($_POST['cmd']) {
+    if (empty($_SERVER['HTTP_X_REQUESTED_WITH']) || $_SERVER['HTTP_X_REQUESTED_WITH'] != 'XMLHttpRequest') {
+        return;
+    }
+    if ($_POST['cmd']) {
 
 
-    $login = $vars['login'];
-    $password = $vars['password'];
-    $ip = $vars['ip'];
-    $ch = curl_init();
-    curl_setopt_array($ch, [
-      CURLOPT_HTTPHEADER => array("Content-Type: application/json",)
-    ]);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
-    curl_setopt($ch, CURLOPT_HEADER, false);
-    header('Content-Type: application/json; charset=utf-8');
+        $login = $vars['login'];
+        $password = $vars['password'];
+        $ip = $vars['ip'];
+        $ch = curl_init();
+        curl_setopt_array($ch, [
+            CURLOPT_HTTPHEADER => array("Content-Type: application/json",)
+        ]);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
+        curl_setopt($ch, CURLOPT_HEADER, false);
+        header('Content-Type: application/json; charset=utf-8');
 
-    if ($_POST['cmd'] == 'add_domain') {
+        if ($_POST['cmd'] == 'add_domain') {
 
 //      curl_setopt($ch, CURLOPT_POST, true);
-      $url = 'https://' . $ip . '/dnsmgr?authinfo=' . $login . ':' . $password . '&out=JSONdata' .
-        '&func=domain.edit' .
-        '&elid=' .
-        '&dtype=master' .
-        '&name=' . $_POST['name'] .
-        '&masterip=&ip=95.213.243.195' .
-        '&email=tech%40dns1.fastfox.pro' .
-        '&dnssec_turn_off_show=' .
-        '&dnssec=off' .
-        '&sok=ok';
+            $url = 'https://' . $ip . '/dnsmgr?authinfo=' . $login . ':' . $password . '&out=JSONdata' .
+                '&func=domain.edit' .
+                '&elid=' .
+                '&dtype=master' .
+                '&name=' . $_POST['name'] .
+                '&masterip=&ip=95.213.243.195' .
+                '&email=tech%40dns1.fastfox.pro' .
+                '&dnssec_turn_off_show=' .
+                '&dnssec=off' .
+                '&sok=ok';
 
-    } else if ($_POST['cmd'] == 'delete_domain') {
+        } else if ($_POST['cmd'] == 'delete_domain') {
 
-      $url = 'https://' . $ip . '/dnsmgr?authinfo=' . $login . ':' . $password . '&out=JSONdata' .
-        '&func=domain.delete'.
-        '&elid='.$_POST['name'];
-    } else if($_POST['cmd'] == 'ns_edit'){
-      $url = 'https://' . $ip . '/dnsmgr?authinfo=' . $login . ':' . $password . '&out=JSONdata' .
-        '&func=domain.record.edit'.
-        '&elid='.$_POST['name'].
-        '&rtype='.$_POST['rtype'].
-        '&ttl='.$_POST['ttl'].
-        '&ip='.$_POST['ip'].
-        '&domain='.$_POST['domain'].
-        '&priority='.$_POST['priority'].
-        '&weight='.$_POST['weight'].
-        '&port='.$_POST['port'].
-        '&value='.$_POST['value'].
-        '&email='.$_POST['email'].
-        '&info='.$_POST['info'].
-        '&dnssec=off' .
-        '&sok=ok';
+            $url = 'https://' . $ip . '/dnsmgr?authinfo=' . $login . ':' . $password . '&out=JSONdata' .
+                '&func=domain.delete' .
+                '&elid=' . $_POST['name'];
+        } else if ($_POST['cmd'] == 'edit_ns') {
+            $url = 'https://' . $ip . '/dnsmgr?authinfo=' . $login . ':' . $password . '&out=JSONdata' .
+                '&func=domain.record.edit'.
+                '&elid='.$_POST['elid'].//hui.ru.%20MX%2020%20mail.hui.ru.'.
+                '&plid=' . $_POST['plid'] .//hui.ru'.
+                '&name=' . $_POST['name'] .//hui.ru.'.
+                '&ttl=' . $_POST['ttl'] .//4600'.
+                '&rtype=' . $_POST['rtype'] .//mx'.
+                '&ip=' . $_POST['ip'] .
+                '&domain=' . $_POST['domain'] .//mail.hui.ru.'.
+                '&srvdomain='. $_POST['srvdomain'] .
+                '&priority=' . $_POST['priority'] .//20'.
+                '&weight=' . $_POST['weight'] .//'.
+                '&port=' . $_POST['port'] .//'.
+                '&value=' . $_POST['value'] .//'.
+                '&email=' . $_POST['email'] .
+                '&sok=ok';
+                '&sok=ok';
 
 
+        } else if ($_POST['cmd'] == 'add_ns') {
+            $url = 'https://' . $ip . '/dnsmgr?authinfo=' . $login . ':' . $password . '&out=JSONdata' .
+                '&func=domain.record.edit' .
+                '&elid=' . '' .
+                '&plid=' . $_POST['plid'] .//hui.ru'.
+                '&name=' . $_POST['name'] .//hui.ru.'.
+                '&ttl=' . $_POST['ttl'] .//4600'.
+                '&rtype=' . $_POST['rtype'] .//mx'.
+                '&ip=' . $_POST['ip'] .
+                '&domain=' . $_POST['domain'] .//mail.hui.ru.'.
+                '&srvdomain='. $_POST['srvdomain'].
+                '&priority=' . $_POST['priority'] .//20'.
+                '&weight=' . $_POST['weight'] .//'.
+                '&port=' . $_POST['port'] .//'.
+                '&value=' . $_POST['value'] .//'.
+                '&email=' . $_POST['email'] .
+                '&sok=ok';
 
+        }else {
+            die('{unknown_cmd: ' . $_POST['cmd'] . '}');
+
+        }
+
+        curl_setopt($ch, CURLOPT_URL, $url);
+
+
+        $response = curl_exec($ch);
+
+        if (curl_errno($ch)) {
+            die("{Error: " . curl_error($ch) . "}");
+        }
+
+        $response = json_decode($response, true);
+        curl_close($ch);
+        $response['url'] = $url;
+        $response = json_encode($response);
+
+        die($response);
+    } else {
+        die('{cmd: ' . $_POST['cmd'] . '}');
     }
-    else{
-      die('{unknown_cmd: '.$_POST['cmd'].'}');
-
-    }
-
-    curl_setopt($ch, CURLOPT_URL, $url);
-
-
-    $response = curl_exec($ch);
-
-    if (curl_errno($ch)) {
-      die("{Error: " . curl_error($ch) . "}");
-    }
-
-    $disk = json_decode($response, true);
-    curl_close($ch);
-    die($response);
-  }
-  else{
-    die('{cmd: '.$_POST['cmd'].'}');
-  }
 }
